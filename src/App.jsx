@@ -9,6 +9,7 @@ import QuestionTwoScreen from "@/pages/QuestionTwoScreen";
 import LoadingScreen from "@/pages/LoadingScreen";
 import ErrorScreen from "@/pages/ErrorScreen";
 import ResultsScreen from "@/pages/ResultsScreenSuccess";
+import teaserIcon from "@/assets/icons/pet-icon.svg";
 
 const QUIZ_STEPS = {
   INTRO: "intro",
@@ -30,6 +31,9 @@ const STEP_CONFIG = {
   [QUIZ_STEPS.SUCCESS]: { labelledBy: "success-screen-title", variant: "compact" },
 };
 
+const TEASER_DISMISS_KEY = "hapbee-quiz-teaser-dismissed-until";
+const TEASER_DISMISS_DAYS = 7;
+
 const RECOMMENDATIONS = {
   "separation-anxiety": { label: "Daily Calm Routine", detail: "A gentle everyday routine for stress and separation moments." },
   sleep: { label: "Bedtime Calm Routine", detail: "A soothing evening routine designed to support deeper rest." },
@@ -43,17 +47,52 @@ function wait(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
+function getInitialTeaserDismissed() {
+  try {
+    const dismissedUntil = Number(window.localStorage.getItem(TEASER_DISMISS_KEY));
+    return Number.isFinite(dismissedUntil) && dismissedUntil > Date.now();
+  } catch {
+    return false;
+  }
+}
+
 function App() {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isTeaserDismissed, setIsTeaserDismissed] = useState(getInitialTeaserDismissed);
+  const [isOpen, setIsOpen] = useState(() => !getInitialTeaserDismissed());
+  const [hasBeenMinimized, setHasBeenMinimized] = useState(false);
   const [step, setStep] = useState(QUIZ_STEPS.INTRO);
   const [email, setEmail] = useState("");
   const [selectedPet, setSelectedPet] = useState("");
   const [selectedIssue, setSelectedIssue] = useState("");
 
-  const handleClose = useCallback(() => setIsOpen(false), []);
+  const handleClose = useCallback(() => {
+    setIsOpen(false);
+    setHasBeenMinimized(true);
+  }, []);
 
   function handleOpen() {
+    try {
+      window.localStorage.removeItem(TEASER_DISMISS_KEY);
+    } catch {
+      // Opening the quiz does not depend on storage access.
+    }
+
+    setIsTeaserDismissed(false);
     setIsOpen(true);
+    setHasBeenMinimized(false);
+  }
+
+  function handleDismissTeaser() {
+    const dismissedUntil = Date.now() + TEASER_DISMISS_DAYS * 24 * 60 * 60 * 1000;
+
+    try {
+      window.localStorage.setItem(TEASER_DISMISS_KEY, String(dismissedUntil));
+    } catch {
+      // The teaser still closes when storage is unavailable.
+    }
+
+    setIsTeaserDismissed(true);
+    setHasBeenMinimized(false);
   }
 
   function handleEmailContinue(submittedEmail) {
@@ -88,6 +127,34 @@ function App() {
         <p>This page represents the Shopify storefront behind the popup during development.</p>
         <button className="quiz-launch-button" type="button" onClick={handleOpen}>Open pet quiz</button>
       </div>
+
+      {!isOpen && hasBeenMinimized && !isTeaserDismissed && (
+        <aside className="quiz-teaser" aria-label="Pet quiz reminder">
+          <button
+            className="quiz-teaser__open"
+            type="button"
+            onClick={handleOpen}
+            aria-label="Reopen the pet calm quiz"
+          >
+            <span className="quiz-teaser__icon" aria-hidden="true">
+              <img src={teaserIcon} alt="" />
+            </span>
+            <span className="quiz-teaser__copy">
+              <strong>Find your pet’s calm</strong>
+              <small>Continue your 30-second quiz</small>
+            </span>
+            <span className="quiz-teaser__arrow" aria-hidden="true">→</span>
+          </button>
+          <button
+            className="quiz-teaser__dismiss"
+            type="button"
+            onClick={handleDismissTeaser}
+            aria-label="Dismiss pet quiz reminder for seven days"
+          >
+            <span aria-hidden="true">×</span>
+          </button>
+        </aside>
+      )}
 
       {isOpen && (
         <QuizDialog key={step} labelledBy={dialogConfig.labelledBy} variant={dialogConfig.variant} onClose={handleClose}>
