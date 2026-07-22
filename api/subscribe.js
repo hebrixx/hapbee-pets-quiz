@@ -152,7 +152,6 @@ export default async function handler(request, response) {
                     email: {
                       marketing: {
                         consent: "SUBSCRIBED",
-                        consented_at: submittedAt,
                       },
                     },
                   },
