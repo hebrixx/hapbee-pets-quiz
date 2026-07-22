@@ -1,5 +1,6 @@
 import HQButton from "@/components/ui/Button";
 import QuizProgress from "@/components/ui/QuizProgress";
+import mailSentIcon from "@/assets/icons/mail-sent.svg";
 
 const PET_LABELS = { dog: "dog", cat: "cat", other: "pet" };
 
@@ -19,9 +20,13 @@ function ResultsScreen({ email, petType, recommendation, onClose }) {
         <span className="recommendation-card__icon" aria-hidden="true">♡</span>
         <div><span>Recommended routine</span><strong>{recommendation.label}</strong><p>{recommendation.detail}</p></div>
       </div>
-      <div className="delivery-note">
-        <span aria-hidden="true">✉</span>
-        <p><strong>Your $30 OFF offer is on its way.</strong>{email && <> Sent to {email}.</>}</p>
+      <div className="offer-reward" aria-live="polite">
+        <div className="offer-reward__icon" aria-hidden="true"><img src={mailSentIcon} alt="" /></div>
+        <div className="offer-reward__content">
+          <span className="offer-reward__eyebrow">Bonus unlocked</span>
+          <strong className="offer-reward__amount">$30 OFF</strong>
+          <p>Your exclusive offer is on its way{email && <> to <span>{email}</span></>}.</p>
+        </div>
       </div>
       <div className="success-actions"><HQButton type="button" size="lg" fullWidth onClick={onClose}>Continue Browsing</HQButton></div>
     </div>

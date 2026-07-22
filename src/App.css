@@ -198,10 +198,15 @@
 .recommendation-card div > span { display:block; color:#9d7650; font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .recommendation-card strong { display:block; margin-top:4px; color:#1d211c; font-family:"Fredoka",sans-serif; font-size:18px; font-weight:600; }
 .recommendation-card p { margin:5px 0 0; color:#736b63; font-size:12px; line-height:1.45; }
-.delivery-note { display:flex; align-items:flex-start; gap:9px; width:100%; margin-top:14px; padding:0 3px; color:#706961; font-size:11px; line-height:1.45; text-align:left; overflow-wrap:anywhere; }
-.delivery-note > span { color:#a87336; }
-.delivery-note p { margin:0; }
-.delivery-note strong { color:#49433d; }
+.offer-reward { position:relative; display:grid; grid-template-columns:56px 1fr; gap:15px; align-items:center; width:100%; margin-top:16px; padding:18px; border:1px solid rgba(123,203,118,.62); border-radius:20px; background:linear-gradient(135deg,rgba(238,249,234,.98),rgba(255,255,255,.98)); box-shadow:0 14px 34px rgba(11,42,27,.09),inset 0 1px 0 rgba(255,255,255,.9); text-align:left; overflow:hidden; }
+.offer-reward::after { content:""; position:absolute; width:110px; height:110px; top:-58px; right:-34px; border-radius:50%; background:rgba(123,203,118,.16); filter:blur(2px); pointer-events:none; }
+.offer-reward__icon img{width:40px;height:40px;display:block;}
+.offer-reward__icon { position:relative; z-index:1; display:grid; place-items:center; width:56px; height:56px; border-radius:17px; background:#7BCB76; color:#0B2A1B; box-shadow:0 10px 22px rgba(11,42,27,.13); font-size:25px; }
+.offer-reward__content { position:relative; z-index:1; min-width:0; }
+.offer-reward__eyebrow { display:block; margin-bottom:2px; color:#547850; font-size:10px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+.offer-reward__amount { display:block; color:#0B2A1B; font-family:"Fredoka",sans-serif; font-size:31px; font-weight:600; line-height:1; letter-spacing:-.025em; }
+.offer-reward p { margin:7px 0 0; color:#4f5f54; font-size:13px; font-weight:600; line-height:1.45; overflow-wrap:anywhere; }
+.offer-reward p span { color:#0B2A1B; font-weight:800; }
 .success-actions { width:100%; margin-top:auto; padding-top:20px; }
 
 @keyframes orbitPulse { 0%,100%{transform:scale(.72);opacity:.45} 50%{transform:scale(1);opacity:1} }
@@ -232,6 +237,11 @@
   .quiz-panel--success,.quiz-panel--status { min-height:100svh; padding:calc(24px + env(safe-area-inset-top)) 20px calc(18px + env(safe-area-inset-bottom)); }
   .quiz-panel--status > :first-child { margin-bottom:48px; }
   .status-copy h1,.success-copy h1 { font-size:34px; }
+  .offer-reward { grid-template-columns:50px 1fr; gap:13px; padding:16px; border-radius:18px; }
+  .offer-reward__icon img{width:36px;height:36px;display:block;}
+.offer-reward__icon { width:50px; height:50px; border-radius:15px; font-size:23px; }
+  .offer-reward__amount { font-size:28px; }
+  .offer-reward p { font-size:12px; }
 }
 
 @media (max-width:370px) {

@@ -70,6 +70,11 @@ function App() {
     setHasBeenMinimized(true);
   }, []);
 
+  const handleCompleteClose = useCallback(() => {
+    setIsOpen(false);
+    setHasBeenMinimized(false);
+  }, []);
+
   function handleOpen() {
     try {
       window.localStorage.removeItem(TEASER_DISMISS_KEY);
@@ -164,7 +169,7 @@ function App() {
           {step === QUIZ_STEPS.QUESTION_TWO && <QuestionTwoScreen selectedIssue={selectedIssue} onSelectIssue={setSelectedIssue} onBack={() => setStep(QUIZ_STEPS.QUESTION_ONE)} onContinue={submitQuiz} />}
           {step === QUIZ_STEPS.LOADING && <LoadingScreen />}
           {step === QUIZ_STEPS.ERROR && <ErrorScreen onRetry={submitQuiz} onBack={() => setStep(QUIZ_STEPS.QUESTION_TWO)} />}
-          {step === QUIZ_STEPS.SUCCESS && <ResultsScreen email={email} petType={selectedPet} recommendation={recommendation} onClose={handleClose} />}
+          {step === QUIZ_STEPS.SUCCESS && <ResultsScreen email={email} petType={selectedPet} recommendation={recommendation} onClose={handleCompleteClose} />}
         </QuizDialog>
       )}
     </main>
