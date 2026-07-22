@@ -7,7 +7,7 @@ import AwardIcon from "@/assets/icons/award.svg";
 
 const benefits = [
   { icon: TimeIcon, text: "Takes less than 30 seconds" },
-  { icon: PetIcon, text: "Personalized for your pet" },
+  { icon: PetIcon, text: "Personalized plan for your pet" },
   { icon: AwardIcon, text: "Exclusive $30 OFF" },
 ];
 
@@ -36,10 +36,9 @@ function IntroScreen({ onStart, onClose }) {
         </div>
 
         <div className="intro-copy">
-          <h1 id="intro-title">Find the right calming routine for your pet</h1>
+          <h1 id="intro-title">Discover new calm & happiness for your pet</h1>
           <p>
-            Share your email and answer 2 quick questions to receive a personalized
-            recommendation and <strong>$30 OFF</strong> your first order.
+          Answer 2 quick questions to receive a personalized recommendation for your pet, plus <strong>$30 OFF</strong> your first Hapbee Pets Pad.
           </p>
         </div>
 
@@ -63,10 +62,6 @@ function IntroScreen({ onStart, onClose }) {
             Not right now
           </button>
         </div>
-
-        <p className="privacy-note">
-          We respect your privacy. Unsubscribe anytime.
-        </p>
       </div>
     </>
   );

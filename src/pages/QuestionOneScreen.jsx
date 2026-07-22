@@ -13,7 +13,7 @@ const petOptions = [
 
 function QuestionOneScreen({ selectedPet, onSelectPet, onBack, onContinue }) {
   return (
-    <QuizStepLayout currentStep={2} onBack={onBack} titleId="question-one-title" title="Who are we creating a calmer routine for?" subtitle="Choose one pet type." icon={<img src={petIcon} alt="" className="step-icon__image step-icon__image--pet" />} iconClassName="step-icon--pet">
+    <QuizStepLayout currentStep={2} onBack={onBack} titleId="question-one-title" title="Who are we creating a calm & happiness plan for?" subtitle="Choose one pet type." icon={<img src={petIcon} alt="" className="step-icon__image step-icon__image--pet" />} iconClassName="step-icon--pet">
       <div className="answer-list" role="radiogroup" aria-labelledby="question-one-title">
         {petOptions.map((option) => {
           const selected = selectedPet === option.id;

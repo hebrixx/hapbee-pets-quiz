@@ -14,7 +14,7 @@ const issueOptions = [
   { id: "loud-noises", title: "Loud Noises", icon: NoiseIcon },
   { id: "travel", title: "Travel & Car Rides", icon: TravelIcon },
   { id: "general-anxiety", title: "Restlessness", icon: RestlessIcon },
-  { id: "other", title: "Something Else", icon: OtherIcon },
+  { id: "other", title: "Separation / Being Alone", icon: OtherIcon },
 ];
 
 function QuestionTwoScreen({ selectedIssue, onSelectIssue, onBack, onContinue }) {

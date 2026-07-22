@@ -23,9 +23,9 @@ function EmailScreen({ initialEmail = "", onContinue, onBack }) {
   }
 
   return (
-    <QuizStepLayout currentStep={1} onBack={onBack} titleId="email-screen-title" title="Where should we send your results?" subtitle="Your recommendation will be ready in under a minute." icon={<img className="step-icon__image step-icon__image--email" src={emailIcon} alt="" />} iconClassName="step-icon--email">
+    <QuizStepLayout currentStep={1} onBack={onBack} titleId="email-screen-title" title="Where should we send your results?" subtitle="Your recommendation will be ready in a minute." icon={<img className="step-icon__image step-icon__image--email" src={emailIcon} alt="" />} iconClassName="step-icon--email">
       <ul className="check-list">
-        <li>Your personalized calming routine</li>
+        <li>Your personalized calm & happiness plan</li>
         <li>$30 OFF your first order</li>
         <li>Expert tips tailored to your pet</li>
       </ul>
