@@ -38,7 +38,7 @@ function EmailScreen({ initialEmail = "", onContinue, onBack, onClose }) {
 
           <div className="step-icon" aria-hidden="true">✉</div>
           <div className="step-copy step-copy--center">
-            <h1 id="email-screen-title">Where should we send your results?</h1>
+            <h1 id="email-screen-title" style={{ letterSpacing: "0.02em" }}>Where should we send your results?</h1>
             <p>Enter your email to receive:</p>
           </div>
 

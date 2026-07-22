@@ -4,7 +4,7 @@ import HQInput from "@/components/ui/Input";
 function UIPlayground() {
   return (
     <main className="page">
-      <h1>HQ UI</h1>
+      <h1 style={{ letterSpacing: "0.02em" }}>HQ UI</h1>
 
       <p>
         Every reusable component will be built and tested here before it is used

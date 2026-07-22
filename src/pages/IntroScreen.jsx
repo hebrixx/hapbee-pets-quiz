@@ -1,9 +1,14 @@
 import HQButton from "@/components/ui/Button";
+import Logo from "@/assets/images/logo-hapbee.svg";
+
+import TimeIcon from "@/assets/icons/time.svg";
+import PetIcon from "@/assets/icons/pet.svg";
+import AwardIcon from "@/assets/icons/award.svg";
 
 const benefits = [
-  { icon: "◷", text: "Takes less than 30 seconds" },
-  { icon: "✦", text: "Personalized for your pet" },
-  { icon: "◇", text: "Exclusive $30 OFF" },
+  { icon: TimeIcon, text: "Takes less than 30 seconds" },
+  { icon: PetIcon, text: "Personalized for your pet" },
+  { icon: AwardIcon, text: "Exclusive $30 OFF" },
 ];
 
 function IntroScreen({ onStart, onClose }) {
@@ -24,13 +29,17 @@ function IntroScreen({ onStart, onClose }) {
         </div>
 
         <div className="quiz-panel quiz-panel--intro">
-          <div className="brand-kicker">
-            <span className="brand-kicker__icon">🐾</span>
+         <div className="brand-kicker">
+            <img
+              src={Logo}
+              alt="Hapbee Pets"
+              className="brand-kicker__logo"
+            />
             <span>Personalized Pet Quiz</span>
           </div>
 
           <div className="intro-copy">
-            <h1 id="intro-title">Find the best calming solution for your pet</h1>
+            <h1 id="intro-title" style={{ letterSpacing: "0.02em" }}>Find the best calming solution for your pet</h1>
             <p>
               Answer 2 quick questions to receive your personalized recommendation and
               <strong> $30 OFF</strong> your first order.
@@ -40,7 +49,13 @@ function IntroScreen({ onStart, onClose }) {
           <div className="benefit-list" aria-label="Quiz benefits">
             {benefits.map((benefit) => (
               <div className="benefit-item" key={benefit.text}>
-                <span className="benefit-item__icon" aria-hidden="true">{benefit.icon}</span>
+               <span className="benefit-item__icon" aria-hidden="true">
+                  <img
+                    src={benefit.icon}
+                    alt=""
+                    className="benefit-item__icon-image"
+                  />
+                </span>
                 <span>{benefit.text}</span>
               </div>
             ))}

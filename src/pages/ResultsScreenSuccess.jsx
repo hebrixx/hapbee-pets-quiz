@@ -22,7 +22,7 @@ function ResultsScreen({ email, onClose }) {
           </div>
 
           <div className="success-copy">
-            <h1 id="success-screen-title">You’re all set!</h1>
+            <h1 id="success-screen-title" style={{ letterSpacing: "0.02em" }}>You’re all set!</h1>
             <p>
               Your personalized recommendation and exclusive <strong>$30 OFF</strong> are on their way to your inbox.
             </p>

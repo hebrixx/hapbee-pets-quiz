@@ -28,7 +28,7 @@ function QuestionTwoScreen({ selectedIssue, onSelectIssue, onBack, onContinue, o
 
           <div className="step-icon step-icon--pink" aria-hidden="true">♥</div>
           <div className="step-copy step-copy--center">
-            <h1 id="question-two-title">What’s your pet’s biggest challenge right now?</h1>
+            <h1 id="question-two-title" style={{ letterSpacing: "0.02em" }}>What’s your pet’s biggest challenge right now?</h1>
             <p>Select one</p>
           </div>
 
