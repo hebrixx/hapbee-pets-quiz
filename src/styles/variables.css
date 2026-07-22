@@ -1,6 +1,6 @@
 :root {
-  --color-primary: #080808;
-  --color-primary-hover: #242424;
+  --color-primary: #0b2a1b;
+  --color-primary-hover: #163f2b;
   --color-brand: #0b2a1b;
   --color-accent: #b77b38;
   --color-surface: #ffffff;
@@ -8,7 +8,7 @@
   --color-text: #111111;
   --color-text-secondary: #6f6861;
   --color-border: #e8e0d6;
-  --focus-ring: rgba(17,17,17,.22);
+  --focus-ring: rgba(11,42,27,.28);
   --radius-control: 11px;
   --radius-card: 13px;
   --radius-modal: 26px;

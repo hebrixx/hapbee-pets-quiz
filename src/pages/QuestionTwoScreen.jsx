@@ -1,5 +1,6 @@
 import QuizStepLayout from "@/components/quiz/QuizStepLayout";
 import HQButton from "@/components/ui/Button";
+import finalIcon from "@/assets/icons/final-icon.svg";
 import StressIcon from "@/assets/icons/challenges/stress.svg";
 import SleepIcon from "@/assets/icons/challenges/sleep.svg";
 import NoiseIcon from "@/assets/icons/challenges/noise.svg";
@@ -18,7 +19,7 @@ const issueOptions = [
 
 function QuestionTwoScreen({ selectedIssue, onSelectIssue, onBack, onContinue }) {
   return (
-    <QuizStepLayout currentStep={3} onBack={onBack} titleId="question-two-title" title="What does your pet need the most support with?" subtitle="Choose the closest match." icon="♥" iconClassName="step-icon--pink">
+    <QuizStepLayout currentStep={3} onBack={onBack} titleId="question-two-title" title="What does your pet need the most support with?" subtitle="Choose the closest match." icon={<img src={finalIcon} alt="" className="step-icon__image step-icon__image--final" />} iconClassName="step-icon--final">
       <div className="answer-grid" role="radiogroup" aria-labelledby="question-two-title">
         {issueOptions.map((option) => {
           const selected = selectedIssue === option.id;

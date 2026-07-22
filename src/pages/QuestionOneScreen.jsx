@@ -1,5 +1,6 @@
 import QuizStepLayout from "@/components/quiz/QuizStepLayout";
 import HQButton from "@/components/ui/Button";
+import petIcon from "@/assets/icons/pet-icon.svg";
 import DogIcon from "@/assets/icons/dog-2.svg";
 import CatIcon from "@/assets/icons/cat-2.svg";
 import OtherPetIcon from "@/assets/icons/other-pet.svg";
@@ -12,7 +13,7 @@ const petOptions = [
 
 function QuestionOneScreen({ selectedPet, onSelectPet, onBack, onContinue }) {
   return (
-    <QuizStepLayout currentStep={2} onBack={onBack} titleId="question-one-title" title="Who are we creating a calmer routine for?" subtitle="Choose one pet type." icon={<img src={DogIcon} alt="" className="step-icon__image" />} iconClassName="step-icon--pet">
+    <QuizStepLayout currentStep={2} onBack={onBack} titleId="question-one-title" title="Who are we creating a calmer routine for?" subtitle="Choose one pet type." icon={<img src={petIcon} alt="" className="step-icon__image step-icon__image--pet" />} iconClassName="step-icon--pet">
       <div className="answer-list" role="radiogroup" aria-labelledby="question-one-title">
         {petOptions.map((option) => {
           const selected = selectedPet === option.id;

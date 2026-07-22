@@ -6,7 +6,7 @@
   gap: 14px;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
-  font-weight: 720;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: -0.012em;
   cursor: pointer;
@@ -35,13 +35,13 @@
 
 .primary {
   background: var(--color-primary);
-  color: #fff;
-  box-shadow: 0 8px 20px rgba(17, 17, 17, 0.13);
+  color: #f8f7f1;
+  box-shadow: 0 8px 20px rgba(11, 42, 27, 0.16);
 }
 
 .primary:hover:not(:disabled) {
   background: var(--color-primary-hover);
-  box-shadow: 0 12px 25px rgba(17, 17, 17, 0.18);
+  box-shadow: 0 12px 25px rgba(11, 42, 27, 0.22);
 }
 
 .secondary {

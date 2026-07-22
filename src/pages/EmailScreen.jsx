@@ -2,6 +2,7 @@ import { useState } from "react";
 import QuizStepLayout from "@/components/quiz/QuizStepLayout";
 import HQButton from "@/components/ui/Button";
 import HQInput from "@/components/ui/Input";
+import emailIcon from "@/assets/icons/email-icon.svg";
 
 function EmailScreen({ initialEmail = "", onContinue, onBack }) {
   const [email, setEmail] = useState(initialEmail);
@@ -22,7 +23,7 @@ function EmailScreen({ initialEmail = "", onContinue, onBack }) {
   }
 
   return (
-    <QuizStepLayout currentStep={1} onBack={onBack} titleId="email-screen-title" title="Where should we send your results?" subtitle="Your recommendation will be ready in under a minute." icon="✉">
+    <QuizStepLayout currentStep={1} onBack={onBack} titleId="email-screen-title" title="Where should we send your results?" subtitle="Your recommendation will be ready in under a minute." icon={<img className="step-icon__image step-icon__image--email" src={emailIcon} alt="" />} iconClassName="step-icon--email">
       <ul className="check-list">
         <li>Your personalized calming routine</li>
         <li>$30 OFF your first order</li>
@@ -35,8 +36,7 @@ function EmailScreen({ initialEmail = "", onContinue, onBack }) {
       </form>
 
       <p className="privacy-note">
-        <span className="privacy-note__lock" aria-hidden="true">⌁</span>
-        We never share your email. Unsubscribe anytime.
+        We respect your privacy. Unsubscribe anytime.
       </p>
     </QuizStepLayout>
   );

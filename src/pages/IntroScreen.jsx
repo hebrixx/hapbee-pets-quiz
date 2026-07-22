@@ -65,8 +65,7 @@ function IntroScreen({ onStart, onClose }) {
         </div>
 
         <p className="privacy-note">
-          <span className="privacy-note__lock" aria-hidden="true">⌁</span>
-          Your information stays private.
+          We respect your privacy. Unsubscribe anytime.
         </p>
       </div>
     </>
