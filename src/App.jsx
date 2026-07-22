@@ -47,6 +47,25 @@ function wait(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
+async function saveQuizToKlaviyo({ email, petType, mainChallenge }) {
+  const response = await fetch("/api/subscribe", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, petType, mainChallenge }),
+  });
+
+  let result = null;
+  try {
+    result = await response.json();
+  } catch {
+    // A non-JSON response is still handled as a failed submission below.
+  }
+
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.error || "We could not save your quiz results.");
+  }
+}
+
 function getInitialTeaserDismissed() {
   try {
     const dismissedUntil = Number(window.localStorage.getItem(TEASER_DISMISS_KEY));
@@ -114,9 +133,17 @@ function App() {
     setStep(QUIZ_STEPS.LOADING);
 
     try {
-      await wait(1150);
+      await Promise.all([
+        saveQuizToKlaviyo({
+          email,
+          petType: selectedPet,
+          mainChallenge: selectedIssue,
+        }),
+        wait(1150),
+      ]);
       setStep(QUIZ_STEPS.SUCCESS);
-    } catch {
+    } catch (error) {
+      console.error("Quiz submission failed:", error);
       setStep(QUIZ_STEPS.ERROR);
     }
   }
