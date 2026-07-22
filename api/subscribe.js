@@ -174,11 +174,18 @@ export default async function handler(request, response) {
 
     return sendJson(response, 200, { ok: true });
   } catch (error) {
-    console.error("Klaviyo quiz submission failed:", {
-      message: error?.message,
-      status: error?.status,
-      details: error?.details,
-    });
+    console.error(
+      "Klaviyo quiz submission failed:",
+      JSON.stringify(
+        {
+          message: error.message,
+          status: error.status,
+          details: error.details,
+        },
+        null,
+        2
+      )
+    );
 
     return sendJson(response, 502, {
       ok: false,
