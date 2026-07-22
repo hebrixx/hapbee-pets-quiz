@@ -1,0 +1,17 @@
+@keyframes screenEnter {
+  from { opacity:0; transform:translateY(8px) scale(.994); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes checkPop {
+  0% { transform:scale(.65); }
+  75% { transform:scale(1.12); }
+  100% { transform:scale(1); }
+}
+@keyframes successPop {
+  from { opacity:0; transform:scale(.72); }
+  to { opacity:1; transform:scale(1); }
+}
+@keyframes sparkFloat {
+  0%,100% { transform:translateY(0) rotate(0); opacity:.7; }
+  50% { transform:translateY(-5px) rotate(12deg); opacity:1; }
+}
