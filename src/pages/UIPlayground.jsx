@@ -4,7 +4,7 @@ import HQInput from "@/components/ui/Input";
 function UIPlayground() {
   return (
     <main className="page">
-      <h1 style={{ letterSpacing: "0.02em" }}>HQ UI</h1>
+      <h1>HQ UI</h1>
 
       <p>
         Every reusable component will be built and tested here before it is used
@@ -34,7 +34,7 @@ function UIPlayground() {
       <section className="section">
         <h2>Full-width button</h2>
 
-        <div style={{ width: "min(100%, 420px)" }}>
+        <div className="playground-button-width">
           <HQButton size="lg" fullWidth>
             Find My Pet’s Solution
           </HQButton>

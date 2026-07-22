@@ -1,0 +1,5 @@
+.wrapper { display:flex; align-items:center; gap:10px; width:190px; margin:16px auto 0; }
+.track { position:relative; flex:1; height:5px; overflow:hidden; border-radius:999px; background:#ece7e0; }
+.fill { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#111,#4b4036); transition:width var(--transition-base); }
+.label { min-width:35px; color:#777069; font-size:10px; font-weight:750; letter-spacing:.05em; text-align:right; }
+@media (prefers-reduced-motion:reduce) { .fill { transition:none; } }

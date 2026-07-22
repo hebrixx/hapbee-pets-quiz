@@ -1,8 +1,9 @@
 import { useState } from "react";
+import QuizStepLayout from "@/components/quiz/QuizStepLayout";
 import HQButton from "@/components/ui/Button";
 import HQInput from "@/components/ui/Input";
 
-function EmailScreen({ initialEmail = "", onContinue, onBack, onClose }) {
+function EmailScreen({ initialEmail = "", onContinue, onBack }) {
   const [email, setEmail] = useState(initialEmail);
   const [error, setError] = useState("");
 
@@ -21,54 +22,23 @@ function EmailScreen({ initialEmail = "", onContinue, onBack, onClose }) {
   }
 
   return (
-    <main className="quiz-preview-page">
-      <section className="quiz-shell quiz-shell--compact" aria-labelledby="email-screen-title">
-        <button className="quiz-close" type="button" aria-label="Close quiz" onClick={onClose}>
-          <span aria-hidden="true">×</span>
-        </button>
+    <QuizStepLayout currentStep={1} onBack={onBack} titleId="email-screen-title" title="Where should we send your results?" subtitle="Your recommendation will be ready in under a minute." icon="✉">
+      <ul className="check-list">
+        <li>Your personalized calming routine</li>
+        <li>$30 OFF your first order</li>
+        <li>Expert tips tailored to your pet</li>
+      </ul>
 
-        <div className="quiz-panel quiz-panel--step">
-          <div className="step-header">
-            <button className="back-button" type="button" onClick={onBack}>← <span>Back</span></button>
-            <span>1 of 3</span>
-          </div>
-          <div className="step-dots" aria-label="Step 1 of 3">
-            <span className="is-active" /><span /><span />
-          </div>
+      <form className="step-form" onSubmit={handleSubmit} noValidate>
+        <HQInput id="quiz-email" name="email" label="Email address" type="email" value={email} onChange={(event) => { setEmail(event.target.value); if (error) setError(""); }} placeholder="you@example.com" autoComplete="email" inputMode="email" error={error} required />
+        <HQButton type="submit" size="lg" fullWidth>Continue</HQButton>
+      </form>
 
-          <div className="step-icon" aria-hidden="true">✉</div>
-          <div className="step-copy step-copy--center">
-            <h1 id="email-screen-title" style={{ letterSpacing: "0.02em" }}>Where should we send your results?</h1>
-            <p>Enter your email to receive:</p>
-          </div>
-
-          <ul className="check-list">
-            <li>Your personalized recommendation</li>
-            <li>$30 OFF your first order</li>
-            <li>Expert calming tips for your pet</li>
-          </ul>
-
-          <form className="step-form" onSubmit={handleSubmit} noValidate>
-            <HQInput
-              id="quiz-email"
-              name="email"
-              label="Email address"
-              type="email"
-              value={email}
-              onChange={(event) => { setEmail(event.target.value); if (error) setError(""); }}
-              placeholder="Enter your email"
-              autoComplete="email"
-              inputMode="email"
-              error={error}
-              required
-            />
-            <HQButton type="submit" size="lg" fullWidth>Get My Recommendation</HQButton>
-          </form>
-
-          <p className="privacy-note"><span aria-hidden="true">▣</span> We never share your email. Unsubscribe anytime.</p>
-        </div>
-      </section>
-    </main>
+      <p className="privacy-note">
+        <span className="privacy-note__lock" aria-hidden="true">⌁</span>
+        We never share your email. Unsubscribe anytime.
+      </p>
+    </QuizStepLayout>
   );
 }
 

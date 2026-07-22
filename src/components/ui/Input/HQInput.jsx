@@ -1,3 +1,4 @@
+import { useId } from "react";
 import styles from "./HQInput.module.css";
 
 function HQInput({
@@ -17,7 +18,13 @@ function HQInput({
   className = "",
   ...props
 }) {
-  const inputId = id || name;
+  const generatedId = useId();
+  const inputId = id || name || `hq-input-${generatedId.replace(/:/g, "")}`;
+  const descriptionId = error
+    ? `${inputId}-error`
+    : helperText
+      ? `${inputId}-helper`
+      : undefined;
 
   const wrapperClasses = [
     styles.field,
@@ -50,18 +57,12 @@ function HQInput({
         inputMode={inputMode}
         className={styles.input}
         aria-invalid={Boolean(error)}
-        aria-describedby={
-          error
-            ? `${inputId}-error`
-            : helperText
-              ? `${inputId}-helper`
-              : undefined
-        }
+        aria-describedby={descriptionId}
         {...props}
       />
 
       {error ? (
-        <p id={`${inputId}-error`} className={styles.errorText}>
+        <p id={`${inputId}-error`} className={styles.errorText} role="alert">
           {error}
         </p>
       ) : helperText ? (
