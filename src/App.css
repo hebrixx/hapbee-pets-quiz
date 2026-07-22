@@ -97,7 +97,7 @@
 
 /* Shared quiz steps */
 .quiz-panel--step { min-height:650px; display:flex; flex-direction:column; padding:30px 34px 27px; }
-.step-header { display:flex; align-items:center; justify-content:space-between; padding-right:51px; color:#817a73; font-size:12px; font-weight:650; }
+.step-header { display:flex; align-items:center; justify-content:flex-start; color:#817a73; font-size:12px; font-weight:650; }
 .back-button { display:inline-flex; align-items:center; gap:7px; padding:4px; text-decoration:none; }
 .step-icon { display:grid; place-items:center; width:48px; height:48px; margin:26px auto 0; border:1px solid #ead7bb; border-radius:50%; background:#fffaf3; color:#8e6234; box-shadow:0 8px 22px rgba(123,85,45,.08); font-size:20px; }
 .step-icon__image { width:28px; height:28px; object-fit:contain; }
@@ -152,7 +152,7 @@
 .answer-choice__icon-image { width:29px; height:29px; object-fit:contain; }
 .answer-choice__label { font-size:16px; font-weight:700; }
 .answer-choice__radio { display:grid; place-items:center; width:23px; height:23px; border:1px solid #d8d0c7; border-radius:50%; color:#fff; font-size:12px; }
-.answer-choice.is-selected .answer-choice__radio { border-color:#111; background:#111; animation:checkPop 180ms ease-out; }
+.answer-choice.is-selected .answer-choice__radio { border-color:#7BCB76; background:#7BCB76; color:#0B2A1B; font-weight:800; animation:checkPop 180ms ease-out; }
 .answer-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:24px; }
 .challenge-choice { position:relative; display:grid; grid-template-columns:40px 1fr; align-items:center; gap:10px; min-height:76px; padding:11px 12px; border:1px solid #e7e0d7; border-radius:var(--radius-card); background:#fff; color:#292622; box-shadow:0 3px 10px rgba(54,42,31,.03); text-align:left; cursor:pointer; transition:transform var(--transition-fast),border-color var(--transition-fast),box-shadow var(--transition-fast),background-color var(--transition-fast); }
 .challenge-choice:hover { transform:translateY(-2px); border-color:#d9b983; box-shadow:0 10px 22px rgba(80,56,31,.08); }
@@ -160,7 +160,7 @@
 .challenge-choice__icon img { width:32px; height:32px; }
 .challenge-choice strong { padding-right:13px; font-size:13px; font-weight:700; line-height:1.25; }
 .challenge-choice__check { position:absolute; top:7px; right:7px; display:grid; place-items:center; width:18px; height:18px; border-radius:50%; color:#fff; font-size:10px; }
-.challenge-choice.is-selected .challenge-choice__check { background:#111; animation:checkPop 180ms ease-out; }
+.challenge-choice.is-selected .challenge-choice__check { background:#7BCB76; color:#0B2A1B; font-weight:800; animation:checkPop 180ms ease-out; }
 .step-actions { margin-top:auto; padding-top:23px; }
 
 /* Loading and error */

@@ -3,7 +3,7 @@ import HQButton from "@/components/ui/Button";
 import petIcon from "@/assets/icons/pet-icon.svg";
 import DogIcon from "@/assets/icons/dog-2.svg";
 import CatIcon from "@/assets/icons/cat-2.svg";
-import OtherPetIcon from "@/assets/icons/other-pet.svg";
+import OtherPetIcon from "@/assets/icons/other.svg";
 
 const petOptions = [
   { id: "dog", title: "Dog", icon: DogIcon },

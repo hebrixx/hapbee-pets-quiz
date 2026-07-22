@@ -17,7 +17,6 @@ function QuizStepLayout({
           <span aria-hidden="true">←</span>
           <span>Back</span>
         </button>
-        <span>{currentStep} of 3</span>
       </header>
 
       <QuizProgress currentStep={currentStep} />
