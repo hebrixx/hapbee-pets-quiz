@@ -48,18 +48,22 @@ async function readRequestBody(request) {
   return JSON.parse(rawBody || "{}");
 }
 
-async function klaviyoRequest(path, apiKey, body) {
-  const response = await fetch(`${KLAVIYO_API_URL}${path}`, {
-    method: "POST",
+async function klaviyoRequest(path, apiKey, { method = "POST", body } = {}) {
+  const options = {
+    method,
     headers: {
       Authorization: `Klaviyo-API-Key ${apiKey}`,
       Accept: "application/vnd.api+json",
-      "Content-Type": "application/vnd.api+json",
       revision: KLAVIYO_REVISION,
     },
-    body: JSON.stringify(body),
-  });
+  };
 
+  if (body !== undefined) {
+    options.headers["Content-Type"] = "application/vnd.api+json";
+    options.body = JSON.stringify(body);
+  }
+
+  const response = await fetch(`${KLAVIYO_API_URL}${path}`, options);
   const responseText = await response.text();
   let responseBody = null;
 
@@ -79,6 +83,21 @@ async function klaviyoRequest(path, apiKey, body) {
   }
 
   return responseBody;
+}
+
+async function findProfileByEmail(email, apiKey) {
+  const filter = encodeURIComponent(`equals(email,"${email.replace(/"/g, '\\"')}")`);
+  const result = await klaviyoRequest(`/profiles?filter=${filter}&page[size]=1`, apiKey, {
+    method: "GET",
+  });
+
+  return Array.isArray(result?.data) ? result.data[0] ?? null : null;
+}
+
+function getCompletionCount(properties) {
+  const value = Number(properties?.quiz_completed_count);
+  if (Number.isFinite(value) && value >= 1) return Math.floor(value);
+  return properties?.quiz_completed === true ? 1 : 0;
 }
 
 export default async function handler(request, response) {
@@ -112,66 +131,91 @@ export default async function handler(request, response) {
       return sendJson(response, 400, { ok: false, error: "Quiz answers are incomplete." });
     }
 
+    const existingProfile = await findProfileByEmail(email, apiKey);
+    const existingProperties = existingProfile?.attributes?.properties ?? {};
+    const alreadyCompleted =
+      existingProperties.quiz_completed === true ||
+      existingProperties.offer_claimed === true ||
+      getCompletionCount(existingProperties) > 0;
+
     const submittedAt = new Date().toISOString();
     const source = "Pet Quiz | Popup | V1";
+    const completionCount = getCompletionCount(existingProperties) + 1;
+
     const properties = {
-      $source: source,
       pet_type: PET_LABELS[petType],
       main_challenge: CHALLENGE_LABELS[mainChallenge],
       recommended_routine: RECOMMENDATION_LABELS[mainChallenge],
       quiz_completed: true,
+      quiz_completed_count: completionCount,
       quiz_source: source,
       quiz_version: "V1",
-      offer: "$30 OFF",
       submitted_at: submittedAt,
+      last_quiz_completed_at: submittedAt,
+      offer_claimed: true,
     };
 
-    // First create or update the profile and its quiz properties.
+    if (!alreadyCompleted) {
+      properties.offer = "$30 OFF";
+      properties.offer_claimed_at = submittedAt;
+    }
+
+    // Create or update the Klaviyo profile and store the latest quiz answers.
     await klaviyoRequest("/profile-import", apiKey, {
-      data: {
-        type: "profile",
-        attributes: {
-          email,
-          properties,
+      body: {
+        data: {
+          type: "profile",
+          attributes: {
+            email,
+            properties,
+          },
         },
       },
     });
 
-    // Then record email marketing consent and subscribe the profile to the test list.
-    await klaviyoRequest("/profile-subscription-bulk-create-jobs", apiKey, {
-      data: {
-        type: "profile-subscription-bulk-create-job",
-        attributes: {
-          profiles: {
-            data: [
-              {
-                type: "profile",
-                attributes: {
-                  email,
-                  subscriptions: {
-                    email: {
-                      marketing: {
-                        consent: "SUBSCRIBED",
+    // Only a first-time quiz completion receives the welcome subscription/offer path.
+    if (!alreadyCompleted) {
+      await klaviyoRequest("/profile-subscription-bulk-create-jobs", apiKey, {
+        body: {
+          data: {
+            type: "profile-subscription-bulk-create-job",
+            attributes: {
+              profiles: {
+                data: [
+                  {
+                    type: "profile",
+                    attributes: {
+                      email,
+                      subscriptions: {
+                        email: {
+                          marketing: {
+                            consent: "SUBSCRIBED",
+                          },
+                        },
                       },
                     },
                   },
+                ],
+              },
+            },
+            relationships: {
+              list: {
+                data: {
+                  type: "list",
+                  id: listId,
                 },
               },
-            ],
-          },
-        },
-        relationships: {
-          list: {
-            data: {
-              type: "list",
-              id: listId,
             },
           },
         },
-      },
-    });
+      });
+    }
 
-    return sendJson(response, 200, { ok: true });
+    return sendJson(response, 200, {
+      ok: true,
+      returningCustomer: alreadyCompleted,
+      quizCompletedCount: completionCount,
+    });
   } catch (error) {
     console.error(
       "Klaviyo quiz submission failed:",

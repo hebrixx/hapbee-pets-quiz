@@ -64,6 +64,8 @@ async function saveQuizToKlaviyo({ email, petType, mainChallenge }) {
   if (!response.ok || !result?.ok) {
     throw new Error(result?.error || "We could not save your quiz results.");
   }
+
+  return result;
 }
 
 function getInitialTeaserDismissed() {
@@ -83,6 +85,7 @@ function App() {
   const [email, setEmail] = useState("");
   const [selectedPet, setSelectedPet] = useState("");
   const [selectedIssue, setSelectedIssue] = useState("");
+  const [isReturningCustomer, setIsReturningCustomer] = useState(false);
 
   const handleClose = useCallback(() => {
     setIsOpen(false);
@@ -133,7 +136,7 @@ function App() {
     setStep(QUIZ_STEPS.LOADING);
 
     try {
-      await Promise.all([
+      const [result] = await Promise.all([
         saveQuizToKlaviyo({
           email,
           petType: selectedPet,
@@ -141,6 +144,7 @@ function App() {
         }),
         wait(1150),
       ]);
+      setIsReturningCustomer(Boolean(result.returningCustomer));
       setStep(QUIZ_STEPS.SUCCESS);
     } catch (error) {
       console.error("Quiz submission failed:", error);
@@ -196,7 +200,7 @@ function App() {
           {step === QUIZ_STEPS.QUESTION_TWO && <QuestionTwoScreen selectedIssue={selectedIssue} onSelectIssue={setSelectedIssue} onBack={() => setStep(QUIZ_STEPS.QUESTION_ONE)} onContinue={submitQuiz} />}
           {step === QUIZ_STEPS.LOADING && <LoadingScreen />}
           {step === QUIZ_STEPS.ERROR && <ErrorScreen onRetry={submitQuiz} onBack={() => setStep(QUIZ_STEPS.QUESTION_TWO)} />}
-          {step === QUIZ_STEPS.SUCCESS && <ResultsScreen email={email} petType={selectedPet} recommendation={recommendation} onClose={handleCompleteClose} />}
+          {step === QUIZ_STEPS.SUCCESS && <ResultsScreen email={email} petType={selectedPet} recommendation={recommendation} isReturningCustomer={isReturningCustomer} onClose={handleCompleteClose} />}
         </QuizDialog>
       )}
     </main>

@@ -440,3 +440,29 @@
     transition: none;
   }
 }
+
+.offer-reward--returning {
+  border-color: rgba(11, 42, 27, 0.18);
+  background: linear-gradient(135deg, rgba(245, 248, 245, 0.98), rgba(255, 255, 255, 0.98));
+}
+
+.offer-reward--returning .offer-reward__icon {
+  background: #dff0dd;
+}
+
+.offer-reward__returning-title {
+  display: block;
+  max-width: 360px;
+  color: #0b2a1b;
+  font-family: "Fredoka", sans-serif;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 640px) {
+  .offer-reward__returning-title {
+    font-size: 18px;
+  }
+}
